@@ -28,5 +28,6 @@ func main() {
 		httpPort = "8080"
 	}
 
+	// test for commit
 	e.Logger.Fatal(e.Start(":" + httpPort))
 }
