@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-gs-demo
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      gs: web
+  template:
+    metadata:
+      labels:
+        gs: web
+    spec:
+      containers:
+        - name: my-gs-site
+          image: docker-gs-ping:multistage
+          imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gs-entrypoint
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    gs: web
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30001
